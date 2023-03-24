@@ -1,0 +1,81 @@
+import java.util.Scanner;
+
+import java.util.Random;
+
+public class RockPaperScissor {
+
+    public static void main(String[] args) {
+
+        System.out.println("ROCK-PAPER-SCISSOR ");
+
+        System.out.println("==================");
+
+        Scanner sc = new Scanner(System.in);
+
+        Random rand = new Random(); // Random number will generate by Computer .
+
+        int comp_play = rand.nextInt(3); // taking computer input (random)
+
+        System.out.println("0 --> Rock\n1--> Paper\n2--> Scissors\n");
+
+        System.out.print("What you will Choice :");
+
+        int user_play = sc.nextInt(); // taking user input
+
+        System.out.printf("\nYour choice is %d:", user_play);
+
+        System.out.printf("\nComputer choice is :%d   ", comp_play);
+
+        // Game Logic .
+
+        if (comp_play == user_play) {
+
+            System.out.println("\nIt Draw ; Play again ...");
+
+        }
+
+        if (comp_play == 0) {
+
+            if (user_play == 1) {
+
+                System.out.println("The User Win the Game ... ");
+
+            } else if (user_play == 2) {
+
+                System.out.println("Computer Win the Game...");
+
+            }
+
+        } else if (comp_play == 1) {
+
+            if (user_play == 0) {
+
+                System.out.println("Computer Win the Game ... ");
+
+            } else if (user_play == 2) {
+
+                System.out.println("The User Win the Game...");
+
+            }
+
+        } else if (comp_play == 2) {
+
+            if (user_play == 0) {
+
+                System.out.println("The User Win the Game ... ");
+
+            } else if (user_play == 1) {
+
+                System.out.println("Computer Win the Game...");
+
+            }
+
+        } else {
+
+            System.out.println("Enter the Valid Number .");
+
+        }
+
+    }
+
+}
