@@ -2,18 +2,6 @@
 
 A modern, interactive Rock Paper Scissors game implemented in Java with enhanced features and user-friendly interface.
 
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Installation](#installation)
-- [How to Play](#how-to-play)
-- [Game Rules](#game-rules)
-- [Code Structure](#code-structure)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## ✨ Features
 
 ### 🎯 Core Features
