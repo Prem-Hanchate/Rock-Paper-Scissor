@@ -195,7 +195,7 @@ Contributions are welcome! Here's how you can help:
 
 **Prem Hanchate**
 - GitHub: [@Prem-Hancate](https://github.com/Prem-Hanchate)
-- Email: your.email@example.com
+- Email: hanchateprem@gmail.com
 
 ## 🙏 Acknowledgments
 
