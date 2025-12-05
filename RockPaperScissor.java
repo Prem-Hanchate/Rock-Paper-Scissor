@@ -1,0 +1,178 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class RockPaperScissor {
+    
+    // Enum for game choices to make code more readable and type-safe
+    enum Choice {
+        ROCK(0), PAPER(1), SCISSORS(2);
+        
+        private final int value;
+        
+        Choice(int value) {
+            this.value = value;
+        }
+        
+        public int getValue() {
+            return value;
+        }
+        
+        public static Choice fromInt(int value) {
+            for (Choice choice : Choice.values()) {
+                if (choice.getValue() == value) {
+                    return choice;
+                }
+            }
+            throw new IllegalArgumentException("Invalid choice: " + value);
+        }
+        
+        @Override
+        public String toString() {
+            return name().charAt(0) + name().substring(1).toLowerCase();
+        }
+    }
+    
+    // Game result enum
+    enum GameResult {
+        WIN, LOSE, DRAW
+    }
+    
+    private static Scanner scanner = new Scanner(System.in);
+    private static Random random = new Random();
+    private static int userWins = 0;
+    private static int computerWins = 0;
+    private static int draws = 0;
+
+    public static void main(String[] args) {
+        System.out.println("🎮 ROCK-PAPER-SCISSORS GAME 🎮");
+        System.out.println("================================");
+        
+        boolean playAgain = true;
+        
+        while (playAgain) {
+            playRound();
+            displayScore();
+            playAgain = askToPlayAgain();
+        }
+        
+        displayFinalResults();
+        scanner.close();
+    }
+    
+    private static void playRound() {
+        Choice userChoice = getUserChoice();
+        Choice computerChoice = getComputerChoice();
+        GameResult result = determineWinner(userChoice, computerChoice);
+        
+        displayChoices(userChoice, computerChoice);
+        displayResult(result);
+        updateScore(result);
+    }
+    
+    private static Choice getUserChoice() {
+        while (true) {
+            try {
+                System.out.println("\nMake your choice:");
+                System.out.println("0 → Rock 🪨");
+                System.out.println("1 → Paper 📄");
+                System.out.println("2 → Scissors ✂️");
+                System.out.print("\nEnter your choice (0-2): ");
+                
+                int input = scanner.nextInt();
+                
+                if (input >= 0 && input <= 2) {
+                    return Choice.fromInt(input);
+                } else {
+                    System.out.println("❌ Invalid input! Please enter 0, 1, or 2.");
+                }
+            } catch (Exception e) {
+                System.out.println("❌ Invalid input! Please enter a number.");
+                scanner.nextLine(); // Clear invalid input
+            }
+        }
+    }
+    
+    private static Choice getComputerChoice() {
+        return Choice.fromInt(random.nextInt(3));
+    }
+    
+    private static GameResult determineWinner(Choice userChoice, Choice computerChoice) {
+        if (userChoice == computerChoice) {
+            return GameResult.DRAW;
+        }
+        
+        // Check winning conditions for user
+        boolean userWins = (userChoice == Choice.ROCK && computerChoice == Choice.SCISSORS) ||
+                          (userChoice == Choice.PAPER && computerChoice == Choice.ROCK) ||
+                          (userChoice == Choice.SCISSORS && computerChoice == Choice.PAPER);
+        
+        return userWins ? GameResult.WIN : GameResult.LOSE;
+    }
+    
+    private static void displayChoices(Choice userChoice, Choice computerChoice) {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("Your choice:     " + userChoice);
+        System.out.println("Computer choice: " + computerChoice);
+        System.out.println("=".repeat(30));
+    }
+    
+    private static void displayResult(GameResult result) {
+        switch (result) {
+            case WIN:
+                System.out.println("🎉 Congratulations! You win this round!");
+                break;
+            case LOSE:
+                System.out.println("💻 Computer wins this round!");
+                break;
+            case DRAW:
+                System.out.println("🤝 It's a draw!");
+                break;
+        }
+    }
+    
+    private static void updateScore(GameResult result) {
+        switch (result) {
+            case WIN:
+                userWins++;
+                break;
+            case LOSE:
+                computerWins++;
+                break;
+            case DRAW:
+                draws++;
+                break;
+        }
+    }
+    
+    private static void displayScore() {
+        System.out.println("\n📊 Current Score:");
+        System.out.println("You: " + userWins + " | Computer: " + computerWins + " | Draws: " + draws);
+    }
+    
+    private static boolean askToPlayAgain() {
+        System.out.print("\nDo you want to play another round? (y/n): ");
+        scanner.nextLine(); // Consume newline
+        String response = scanner.nextLine().trim().toLowerCase();
+        return response.equals("y") || response.equals("yes");
+    }
+    
+    private static void displayFinalResults() {
+        System.out.println("\n" + "=".repeat(40));
+        System.out.println("🏆 FINAL RESULTS 🏆");
+        System.out.println("=".repeat(40));
+        System.out.println("Your wins:     " + userWins);
+        System.out.println("Computer wins: " + computerWins);
+        System.out.println("Draws:         " + draws);
+        System.out.println("Total rounds:  " + (userWins + computerWins + draws));
+        
+        if (userWins > computerWins) {
+            System.out.println("\n🎉 Overall Winner: YOU! Congratulations!");
+        } else if (computerWins > userWins) {
+            System.out.println("\n💻 Overall Winner: COMPUTER! Better luck next time!");
+        } else {
+            System.out.println("\n🤝 Overall Result: TIE! Great game!");
+        }
+        
+        System.out.println("\nThanks for playing! 👋");
+    }
+}
